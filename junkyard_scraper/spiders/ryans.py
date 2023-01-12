@@ -34,6 +34,7 @@ class RyansSpider(scrapy.Spider):
             yard_row = row.xpath(sel(5)).get()
             arrival_date = datetime.strptime(row.xpath(sel(6)).get(), "%m/%d/%Y")
             stock_number = row.xpath(sel(7)).get()
+            photo = response.urljoin(row.css("td:nth-child(8) > a::attr(href)").get())
 
             yield {
                 "year": year,
@@ -43,4 +44,5 @@ class RyansSpider(scrapy.Spider):
                 "row": yard_row,
                 "arrival_date": arrival_date,
                 "stock_number": stock_number,
+                "photo": photo,
             }
